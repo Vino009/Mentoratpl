@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se connecter</title>
+    <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/fontawesome-all.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/iofrm-style.css">
+    <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/iofrm-theme16.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <div class="form-body without-side">
+        <div class="website-logo">
+            <a href="index.html">
+                <div class="logo">
+                    <img class="logo-size" src="assets/imagesFormsMentee/logo-light.svg" alt="">
+                </div>
+            </a>
+        </div>
+        <div class="row">
+            <div class="img-holder">
+                <div class="bg"></div>
+                <div class="info-holder">
+                    <img src="assets/imagesFormsMentee/graphic3.svg" alt="">
+                </div>
+            </div>
+            <div class="form-holder">
+                <div class="form-content">
+                    <div class="form-items">
+                        <h3 style="color:rgb(30, 162, 150);" >Se connecter en tant que mentee</h3>
+                            <input style="border:1px solid rgb(30, 162, 150);" class="form-control" type="text" name="username" placeholder="Addresse email" id="email" required>
+                            <input style="border:1px solid rgb(30, 162, 150);" class="form-control" type="password" name="password" placeholder="Password" id="password" required>
+                            <div class="form-button">
+                                <button  id="submit" type="button" class="ibtn">Se connecter</button>
+                            </div>
+                             <br>
+                             <br>
+                            <div class="page-links">
+                                <a style="color:rgb(30, 162, 150); float: right;" href="forgetpasswordMentee.html">Mot de passe oublié?</a>
+                            </div> <br>
+                            <br>
+                        <div class="page-links">
+                            <h6>Pas de compte? <a style="color:rgb(30, 162, 150);" href="registerMentee.html"> S'inscrire</a></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdkB1aaMECN3T8qchwLCZp2sKujxQ7Q_Q",
+            authDomain: "mentor-d5a30.firebaseapp.com",
+            databaseURL: "https://mentor-d5a30-default-rtdb.firebaseio.com",
+            projectId: "mentor-d5a30",
+            storageBucket: "mentor-d5a30.appspot.com",
+            messagingSenderId: "659301528232",
+            appId: "1:659301528232:web:d97471555ca5bc5502889d"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    
+    
+        import {
+          getDatabase,
+          ref,
+          set,
+          update,
+          child,
+          onValue,
+          remove,
+          get,
+    
+        } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    
+        import { getStorage, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"
+    
+        const db = getDatabase();
+    
+        //--------------referances-----------------//                 
+        //var User = document.getElementById("user");
+        //var Name = document.getElementById('username');
+        var Email = document.getElementById("email");
+        //var Phone = document.getElementById("phone");
+        var Pssword = document.getElementById("password");
+        //var Secteur = document.getElementById('secteur');
+        //var Message = document.getElementById('message');
+        var Submit = document.getElementById('submit');
+
+        function seleectData() {
+        const maVariableEnregistree = localStorage.getItem("maVariableidproduct");
+        const dbref = ref(db);
+            get(child(dbref, "Mentor/" + maVariableEnregistree))
+                .then((snapshot) => {
+                    if (snapshot.exists()) {
+                        if(Email.value == snapshot.val().Email && Pssword.value == snapshot.val().Pssword){
+                            window.location.href = "secteurmantorat.html"
+                        }else{
+                            alert("Mot de passe ou adress email incorrecte");
+                        }
+
+                    } else {
+                        alert("no data");
+                    }
+                })
+                .catch((error) => {
+                    alert("il y a une ERROR " + error);
+                });
+        }
+        //--------------asign btn-----------------//
+    
+        Submit.addEventListener("click", seleectData);
+        //Idseleectdata.addEventListener("click", seleectData);
+        //updbtn.addEventListener("click", updatedata);
+        //delbtn.addEventListener("click", deletedata);
+    
+    
+      </script>
+    <script src="assets/jsFormsMentee/jquery.min.js"></script>
+    <script src="assets/jsFormsMentee/popper.min.js"></script>
+    <script src="assets/jsFormsMentee/bootstrap.min.js"></script>
+    <script src="assets/jsFormsMentee/main.js"></script>
+</body>
+
+</html>

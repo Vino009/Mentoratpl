@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="suivi.css">
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+    
+  </head>
+  <body>
+    <div class="container" id="suiviproject">
+      <p id="menuprofilname"></p>
+      <div class="progress-bar">
+        <div class="step">
+          <p> séance 0</p>
+          <div class="bullet">
+            <span>0</span>
+          </div>
+          <div class="check fas fa-check">
+          </div>
+        </div>
+
+        <div class="step">
+          <p>1ère séance</p>
+          <div class="bullet">
+            <span>1</span>
+          </div>
+          <div class="check fas fa-check">
+          </div>
+        </div>
+
+        <div class="step">
+          <p>
+            2ème séance</p>
+          <div class="bullet">
+            <span>2</span>
+          </div>
+          <div class="check fas fa-check">
+          </div>
+        </div>
+
+        <div class="step">
+          <p>
+            3ème séance</p>
+          <div class="bullet">
+            <span>3</span>
+          </div>
+          <div class="check fas fa-check">
+          </div>
+        </div>
+
+        <div class="step" style="display: none;">
+          <p>
+            Enrégistrer</p>
+          <div class="bullet">
+            <span>4</span>
+          </div>
+          <div class="check fas fa-check">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-outer">
+        <form action="#">
+          <div class="page slide-page">
+            <div class="title">
+              Prendre Note 0</div><br>
+            <div class="col-md-10">
+              <textarea name="" id="stepe1" cols="30" rows="10" style="width:
+                250vh;"></textarea>
+            </div>
+            <div class="field" style="float: right;">
+              <button class="firstNext next stepvalide">Valider</button>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="title">
+              Prendre Note 1</div><br>
+            <div class="col-md-10">
+              <textarea name="" id="" cols="30" rows="10" style="width: 100%;"></textarea>
+            </div>
+            <div class="field btns" style="float: right;">
+              <button class="prev-1 prev">Precédent</button>
+              <button class="next-1 next stepvalide">Suivant</button> 
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="title">
+              Prendre Note 2</div><br>
+            <div class="col-md-10">
+              <textarea name="" id="" cols="30" rows="10" style="width: 100%;"></textarea>
+            </div>
+            <div class="field btns" style="float: right;">
+              <button class="prev-2 prev">Precédent</button>
+              <button class="next-2 next stepvalide">Suivant</button>
+            </div>
+          </div>
+
+          <div class="page">
+            <div class="title">
+              Prendre Note 3</div><br>
+            <div class="col-md-10">
+              <textarea name="" id="" cols="30" rows="10" style="width: 100%;"></textarea>
+            </div>
+            <div class="field btns" style="float: right;">
+              <button class="prev-3 prev">Precédent 3</button>
+              <button class="next-3 next stepvalide">suivant</button>
+            </div>
+          </div>
+          <div class="page">
+            <div class="title">
+              Suivi terminé</div><br>
+            <div class="col-md-10">
+
+
+              <h1 id="endprojetid"></h1>
+              <!--<img src="assets/img/projet-end.jpg" alt="" cols="30" rows="10" style="width: 100%;">
+              <textarea name="" id="" cols="30" rows="10" style="width: 100%;"></textarea>-->
+            </div>
+            <div class="field btns" style="float: right;">
+              <button class="prev-4 prev">Precédent</button>
+              <button class="submit stepvalide">Confirmer</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="zoomid" style="display: none;">
+      <div><button class="btn" id="takenote">Prise de note</button></div>
+      <span id="zoommmid"></span>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+    
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDdkB1aaMECN3T8qchwLCZp2sKujxQ7Q_Q",
+            authDomain: "mentor-d5a30.firebaseapp.com",
+            databaseURL: `https://mentor-d5a30-default-rtdb.firebaseio.com`,  
+            projectId: "mentor-d5a30",
+            storageBucket: "mentor-d5a30.appspot.com",
+            messagingSenderId: "659301528232",
+            appId: "1:659301528232:web:d97471555ca5bc5502889d"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+    
+    
+        import {
+          getDatabase,
+          ref,
+          set,
+          update,
+          child,
+          onValue,
+          remove,
+          get,
+    
+        } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+    
+        import { getStorage, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"
+    
+        const db = getDatabase();
+    
+        //--------------referances-----------------//                  
+        var Takenote = document.getElementById("takenote");
+        var Suiviproject = document.getElementById('suiviproject');
+        var Myprofilid = document.getElementById("myprofilid");
+        var stepe1v = document.getElementById("stepe1");
+        //var Pssword = document.getElementById("password");
+        //var Secteur = document.getElementById('secteur');
+        //var Message = document.getElementById('message');
+        var myprofilid1 = document.getElementById("Myprofilid1")
+        var Menuprofil = document.getElementById('menuprofil');
+        function seleectData() {
+          const Idtrans = localStorage.getItem("idtrans");
+            if(!Idtrans){
+              alert(`Vous n'avez aucun en cours !`)
+              window.location.href = "secteurmantorat.html";
+            }
+            const maVariableEnregistree = localStorage.getItem("maVariableidproduct");
+            const dbref = ref(db);
+                get(child(dbref, "Mentor/" + maVariableEnregistree))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                          document.getElementById('zoommmid').innerHTML = `<iframe src="${snapshot.val().Linkid}" style="width: 200vh; height: 90vh; margin-top: 10px;"></iframe>`
+                           document.getElementById('menuprofilname').innerHTML = ` 
+                           <header>Suivi du projet en ${snapshot.val().Secteur}  <img src="assets/img/pervide.svg" alt="" id="suiviprojectVIDEO" style = "cursor: pointer;"></header>       
+                           `
+                           document.getElementById('endprojetid').innerHTML = `<p>Le suivi de votre projet ${snapshot.val().Secteur} est terminé</p>`
+                           document.getElementById('suiviprojectVIDEO').addEventListener('click', function(){
+                            Suiviproject.style.display = "none"
+                            document.getElementById('zoomid').style.display = "block"
+                           })
+                        } else {
+                            alert("no data");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("il y a une ERROR " + error);
+                    });
+            }
+        //--------------asign btn-----------------//
+        window.onload = function () {
+            seleectData();
+            seleectDatastep()
+        }  
+        Takenote.addEventListener('click', function(){
+          Suiviproject.style.display = "block"
+          document.getElementById('zoomid').style.display = "none "
+         
+        })
+
+    const slidePage = document.querySelector(".slide-page");
+    const nextBtnFirst = document.querySelector(".firstNext");
+    const prevBtnSec = document.querySelector(".prev-1");
+    const nextBtnSec = document.querySelector(".next-1");
+    const prevBtnThird = document.querySelector(".prev-2");
+    const prevBtnThird3 = document.querySelector(".prev-3");
+    const nextBtnThird = document.querySelector(".next-2");
+    const prevBtnFourth = document.querySelector(".prev-4");
+    const nextBtnfour = document.querySelector(".next-3");
+    const submitBtn = document.querySelector(".submit");
+    const progressText = document.querySelectorAll(".step p");
+    const progressCheck = document.querySelectorAll(".step .check");
+    const bullet = document.querySelectorAll(".step .bullet");
+    let current = 1;
+
+nextBtnFirst.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-25%";
+  bullet[current - 1].classList.add("active");
+  progressCheck[current - 1].classList.add("active");
+  progressText[current - 1].classList.add("active");
+  current += 1;
+   
+  // envoir desdonnes
+  var id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    const idproduct = id();
+     var stepe1 = "stepe1"
+      set(ref(db, "step1/" + idproduct), {
+          Idproduct: idproduct,   
+          Stepe1:stepe1,
+          Note:stepe1v.value,
+        })
+          .then(() => {
+           localStorage.setItem("maVariableidSz", idproduct);
+           localStorage.setItem("maVariableidvalue", stepe1);
+          })
+          .catch((error) => {
+            alert("vous n'êtes bien connecté")
+          });
+      // return false;
+ 
+});
+
+nextBtnSec.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-50%";
+  bullet[current - 1].classList.add("active");
+  progressCheck[current - 1].classList.add("active");
+  progressText[current - 1].classList.add("active");
+  current += 1;
+    // envoir desdonnes
+    var id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    const idproduct = id();
+     var stepe2 = "stepe2"
+      set(ref(db, "step2/" + idproduct), {
+          Idproduct: idproduct,   
+          Stepe2:stepe2,
+          Note:stepe1v.value,
+        })
+          .then(() => {
+           localStorage.setItem("maVariableidSz2", idproduct);
+           localStorage.setItem("maVariableidvalue", stepe1);
+          })
+          .catch((error) => {
+            alert("vous n'êtes bien connecté")
+          });
+
+});
+nextBtnThird.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-75%";
+  bullet[current - 1].classList.add("active");
+  progressCheck[current - 1].classList.add("active");
+  progressText[current - 1].classList.add("active");
+  current += 1;
+
+  // envoir desdonnes
+  var id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    const idproduct = id();
+     var stepe3 = "stepe3"
+      set(ref(db, "step3/" + idproduct), {
+          Idproduct: idproduct,   
+          Stepe3:stepe3,
+          Note:stepe1v.value,
+        })
+          .then(() => {
+           localStorage.setItem("maVariableidSz3", idproduct);
+           localStorage.setItem("maVariableidvalue", stepe1);
+          })
+          .catch((error) => {
+            alert("vous n'êtes bien connecté")
+          });
+});
+nextBtnfour.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-100%";
+  bullet[current - 1].classList.add("active");
+  progressCheck[current - 1].classList.add("active");
+  progressText[current - 1].classList.add("active");
+  current += 1;
+
+  // envoir desdonnes
+  var id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    const idproduct = id();
+     var stepe4 = "stepe4"
+      set(ref(db, "step4/" + idproduct), {
+          Idproduct: idproduct,   
+          Stepe4:stepe4,
+          Note:stepe1v.value,
+        })
+          .then(() => {
+           localStorage.setItem("maVariableidSz4", idproduct);
+           localStorage.setItem("maVariableidvalue", stepe1);
+          })
+          .catch((error) => {
+            alert("vous n'êtes bien connecté")
+          });
+});
+
+submitBtn.addEventListener("click", function(){
+  bullet[current - 1].classList.add("active");
+  progressCheck[current - 1].classList.add("active");
+  progressText[current - 1].classList.add("active");
+  current += 1;
+  var id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    const idproduct = id();
+     var stepe5 = "stepe5"
+      set(ref(db, "stepe5/" + idproduct), {
+          Idproduct: idproduct,   
+          Stepe5:stepe5,
+          Note:stepe1v.value,
+        })
+          .then(() => {
+           localStorage.setItem("maVariableidSz5", idproduct);
+           localStorage.setItem("maVariableidvalue", stepe1);
+          })
+          .catch((error) => {
+            alert("vous n'êtes bien connecté")
+          });
+ setTimeout(()=>{
+  const Idtrans = localStorage.getItem("idtrans");
+  const maVariable1 = localStorage.getItem("maVariableidSz1");
+  const maVariable2 = localStorage.getItem("maVariableidSz2");
+  const maVariable3 = localStorage.getItem("maVariableidSz3");
+  const maVariable4 = localStorage.getItem("maVariableidSz4");
+  const maVariable5 = localStorage.getItem("maVariableidSz5");
+  const maVariable = localStorage.getItem("maVariableidSz");
+  setTimeout(()=>{
+    remove(ref(db, "step1/" + maVariable))
+                .then(() => {
+                    //window.location.reload();
+                })
+                .catch((error) => {
+                    alert("les données ne sont pas supprimées " + error);
+                });
+  },110),
+  setTimeout(()=>{
+    remove(ref(db, "step2/" + maVariable2))
+                .then(() => {
+                    //window.location.reload();
+                })
+                .catch((error) => {
+                    alert("les données ne sont pas supprimées " + error);
+                });
+  },130),
+  setTimeout(()=>{
+    remove(ref(db, "step3/" + maVariable3))
+                .then(() => {
+                    //window.location.reload();
+                })
+                .catch((error) => {
+                    alert("les données ne sont pas supprimées " + error);
+                });
+  },140),
+  setTimeout(()=>{
+    remove(ref(db, "step4/" + maVariable4))
+                .then(() => {
+                    //window.location.reload();
+                })
+                .catch((error) => {
+                    alert("les données ne sont pas supprimées " + error);
+                });
+  },150),
+  setTimeout(()=>{
+    remove(ref(db, "step5/" + maVariable5))
+                .then(() => {
+                    window.location.href = "secteurmantorat.html";
+                })
+                .catch((error) => {
+                    alert("les données ne sont pas supprimées " + error);
+                });
+  },150),
+  setTimeout(()=>{
+    const Idtrans = localStorage.getItem("idtrans");
+    remove(ref(db, "Montantmantorat/" + Idtrans))
+                .then(() => {
+                    window.location.href = "secteurmantorat.html";
+                })
+                .catch((error) => {
+                    alert("les données ne sont pas supprimées " + error);
+                });
+                localStorage.removeItem('idtrans');
+  },160)
+  console.log('ok lololo !')
+ },8000)
+});
+
+prevBtnSec.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "0%";
+  bullet[current - 2].classList.remove("active");
+  progressCheck[current - 2].classList.remove("active");
+  progressText[current - 2].classList.remove("active");
+  current -= 1;
+});
+prevBtnThird.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-25%";
+  bullet[current - 2].classList.remove("active");
+  progressCheck[current - 2].classList.remove("active");
+  progressText[current - 2].classList.remove("active");
+  current -= 1;
+});
+prevBtnThird3.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-50%";
+  bullet[current - 2].classList.remove("active");
+  progressCheck[current - 2].classList.remove("active");
+  progressText[current - 2].classList.remove("active");
+  current -= 1;
+});
+prevBtnFourth.addEventListener("click", function(event){
+  event.preventDefault();
+  slidePage.style.marginLeft = "-75%";
+  bullet[current - 2].classList.remove("active");
+  progressCheck[current - 2].classList.remove("active");
+  progressText[current - 2].classList.remove("active");
+  current -= 1;
+});
+
+
+  function seleectDatastep() {
+            const dbref = ref(db);
+            const maVariable = localStorage.getItem("maVariableidSz");
+                get(child(dbref, "step1/" + maVariable))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                          slidePage.style.marginLeft = "-25%";
+                          bullet[current - 1].classList.add("active");
+                          progressCheck[current - 1].classList.add("active");
+                          progressText[current - 1].classList.add("active");
+                          current += 1;
+                        } else {
+                          //  alert("no data");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("il y a une ERROR " + error);
+                    });
+
+                const maVariable2 = localStorage.getItem("maVariableidSz2");
+                get(child(dbref, "step2/" + maVariable2))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                          slidePage.style.marginLeft = "-50%";
+                          bullet[current - 1].classList.add("active");
+                          progressCheck[current - 1].classList.add("active");
+                          progressText[current - 1].classList.add("active");
+                          current += 1;
+                        } else {
+                          //  alert("no data");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("il y a une ERROR " + error);
+                    });
+
+                const maVariable3 = localStorage.getItem("maVariableidSz3");
+
+                get(child(dbref, "step3/" + maVariable3))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                          slidePage.style.marginLeft = "-75%";
+                          bullet[current - 1].classList.add("active");
+                          progressCheck[current - 1].classList.add("active");
+                          progressText[current - 1].classList.add("active");
+                          current += 1;
+                        } else {
+                          //  alert("no data");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("il y a une ERROR " + error);
+                    });
+
+
+                const maVariable4 = localStorage.getItem("maVariableidSz4");
+
+                get(child(dbref, "step4/" + maVariable4))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                          slidePage.style.marginLeft = "-100%";
+                          bullet[current - 1].classList.add("active");
+                          progressCheck[current - 1].classList.add("active");
+                          progressText[current - 1].classList.add("active");
+                          current += 1;
+                        } else {
+                          //  alert("no data");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("il y a une ERROR " + error);
+                    });
+
+                const maVariable5 = localStorage.getItem("maVariableidSz5");
+
+                get(child(dbref, "step5/" + maVariable5))
+                    .then((snapshot) => {
+                        if (snapshot.exists()) {
+                          bullet[current - 1].classList.add("active");
+                          progressCheck[current - 1].classList.add("active");
+                          progressText[current - 1].classList.add("active");
+                          current += 1;
+                        } else {
+                          //  alert("no data");
+                        }
+                    })
+                    .catch((error) => {
+                        alert("il y a une ERROR " + error);
+                    });
+            }
+
+        //Myprofilid.addEventListener("click", getAllDataOnce);
+        //Idseleectdata.addEventListener("click", seleectData);
+        //updbtn.addEventListener("click", updatedata);
+        //delbtn.addEventListener("click", deletedata);
+    
+      </script>
+    <script src="seance.js"></script>
+
+  </body>
+</html>

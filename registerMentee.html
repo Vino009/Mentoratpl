@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Inscription Mentee</title>
+        <link rel="stylesheet" type="text/css"
+            href="assets/cssFormsMentee/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css"
+            href="assets/cssFormsMentee/fontawesome-all.min.css">
+        <link rel="stylesheet" type="text/css"
+            href="assets/cssFormsMentee/iofrm-style.css">
+        <link rel="stylesheet" type="text/css"
+            href="assets/cssFormsMentee/iofrm-theme16.css">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+            integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+    </head>
+
+    <body>
+        <div class="form-body without-side">
+            <div class="website-logo">
+                <a href="index.html">
+                    <div class="logo">
+                        <img class="logo-size"
+                            src="assets/imagesFormsMentee/logo-light.svg"
+                            alt="">
+                    </div>
+                </a>
+            </div>
+            <div class="row">
+                <div class="img-holder">
+                    <div class="bg"></div>
+                    <div class="info-holder">
+                        <img src="assets/imagesFormsMentee/graphic3.svg" alt="">
+                    </div>
+                </div>
+                <div class="form-holder">
+                    <div class="form-content">
+                        <div class="form-items">
+                            <h3 style="color: rgb(30, 162, 150);" id="smsIdS">S'inscrire</h3>
+                            <p id="smsId"></p>
+                            <input style="border:1px solid rgb(30, 162, 150);"
+                                class="form-control" type="text" name="name"
+                                placeholder="Nom d'utilsateur" required
+                                id="user">
+                            <input style="border:1px solid rgb(30, 162, 150);"
+                                class="form-control" type="text" name="name"
+                                placeholder="Nom et prénom" required
+                                id="username">
+                            <input style="border:1px solid rgb(30, 162, 150);"
+                                class="form-control" type="email" name="email"
+                                placeholder="Addresse email" required
+                                id="email">
+                            <input style="border:1px solid rgb(30, 162, 150);"
+                                id="phone" class="form-control" type="tel"
+                                name="email" size="12" minlength="8"
+                                maxlength="12" placeholder="Numero de téléphone
+                                XXXXXXXX" required>
+                            <input style="border:1px solid rgb(30, 162, 150);"
+                                class="form-control" type="password"
+                                name="password" placeholder="Mot de passe"
+                                required id="password">
+                            <!--<input style="border:1px solid rgb(30, 162, 150);" class="form-control" type="password" name="password" placeholder="Confirmer mot de passe " required>-->
+                            <select name="" id="secteur" style="border:1px solid
+                                rgb(30, 162, 150);" class="form-control">
+                                <option value="Development Web">Secteurs</option>
+                                <option value="Development Web">Development Web</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Copywriting">Copywriting</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="Cryptomonnaie">Cryptomonnaie</option>
+                                <option value="Sciences et Technologie">Sciences
+                                    et Technologie</option>
+                            </select><br>
+                            <!--<h5>Importer votre Certificat</h5>                        
+                            <input style="border:1px solid rgb(30, 162, 150);height: auto;" class="form-control" type="file" name="name" placeholder="Compétences" required>
+                            <textarea id="message" style="border:1px solid
+                                rgb(30, 162, 150);" name="msg" id="" cols="30"
+                                rows="10" placeholder="Redigez en quelques mot
+                                votre motivation à devenir mentor"></textarea>-->
+                            <div class="form-button">
+                                <button id="submit" type="button" class="ibtn">S'inscrire</button>
+                            </div>
+                            <br>
+                            <div class="page-links">
+                                <h6>J'ai dejà un compte ? <a
+                                        style="color:rgb(30, 162, 150);"
+                                        href="loginMentee.html">Connecter vous
+                                    </a> ici</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+  <script type="module">
+
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDdkB1aaMECN3T8qchwLCZp2sKujxQ7Q_Q",
+        authDomain: "mentor-d5a30.firebaseapp.com",
+        databaseURL: "https://mentor-d5a30-default-rtdb.firebaseio.com",
+        projectId: "mentor-d5a30",
+        storageBucket: "mentor-d5a30.appspot.com",
+        messagingSenderId: "659301528232",
+        appId: "1:659301528232:web:d97471555ca5bc5502889d"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+
+    import {
+      getDatabase,
+      ref,
+      set,
+      update,
+      child,
+      onValue,
+      remove,
+      get,
+
+    } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+    import { getStorage, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-storage.js"
+
+    const db = getDatabase();
+
+    //--------------referances-----------------//                 
+    var User = document.getElementById("user");
+    var Name = document.getElementById('username');
+    var Email = document.getElementById("email");
+    var Phone = document.getElementById("phone");
+    var Pssword = document.getElementById("password");
+    var Secteur = document.getElementById('secteur');
+    //var Message = document.getElementById('message');
+    var Submit = document.getElementById('submit');
+
+
+    //function to get now date
+    var d = new Date();
+    var date = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    var hours = d.getHours() + ":" + d.getMinutes() + ":" + d.getSeconds();
+    var fullDate = date + ' ' + hours;
+    var tableTakeIdproduct = []
+
+
+    //--------------function to insert all  data-----------------//
+
+    //function to generate unique ID
+
+    var id = () => {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    const idproduct = id();
+
+    function insertData(e) {
+      const idproduct = id()
+      if (Name.value && Email.value && Pssword.value &&  User.value && Phone.value && Secteur.value) {
+        set(ref(db, "Mentor/" + idproduct), {
+          Idproduct: idproduct,
+          User:User.value,
+          Phone:Phone.value,
+          Nom: Name.value,
+          Email: Email.value,
+          Linkid:"",
+          Pssword: Pssword.value,
+          Secteur:Secteur.value,
+          //Message: Message.value,
+          Datetime: fullDate
+        })
+          .then(() => {
+           User.value="",
+           Phone.value="",
+           Name.value="",
+           Email.value="",
+           Pssword.value="",
+           Secteur.value="",
+           localStorage.setItem("maVariableidproduct", idproduct);
+           setTimeout(()=>{
+            var SmsId = document.getElementById('smsId')
+            document.getElementById('smsIdS').style.display = "none"
+            SmsId.innerHTML = ` <h5 class ="btn btn-success" style="color: white;;">Inscription éffectué avec succès!</h5>`
+           },500)
+           setTimeout(()=>{
+            
+            window.location.href = "loginMentee.html"
+           },5000)
+          })
+          .catch((error) => {
+            alert("vous n'êtes bien connecté")
+          });
+      }
+
+
+      // return false;
+      e.preventDefault();
+    }
+    //--------------asign btn-----------------//
+
+    Submit.addEventListener("click", insertData);
+    //Idseleectdata.addEventListener("click", seleectData);
+    //updbtn.addEventListener("click", updatedata);
+    //delbtn.addEventListener("click", deletedata);
+
+
+  </script>
+        <script src="assets/jsFormsMentee/jquery.min.js"></script>
+        <script src="assets/jsFormsMentee/popper.min.js"></script>
+        <script src="assets/jsFormsMentee/bootstrap.min.js"></script>
+        <script src="assets/jsFormsMentee/main.js"></script>
+    </body>
+
+</html>

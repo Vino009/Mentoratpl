@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Ma réunion Jitsi Meet</title>
+</head>
+<body>
+  <h1>Ma réunion Jitsi Meet</h1>
+  <p>Cliquez sur le bouton ci-dessous pour rejoindre la réunion :</p>
+  <button id="join-meeting-btn">Rejoindre la réunion</button>
+  
+  <!-- Importez la bibliothèque de Jitsi Meet -->
+  <script src="https://meet.jit.si/external_api.js"></script>
+  
+  <script>
+    // Ajoutez un gestionnaire d'événements pour le chargement de la bibliothèque
+    window.addEventListener('load', () => {
+      // Créez une instance de JitsiMeetExternalAPI
+      const domain = 'meet.jit.si';
+      const options = {
+        roomName: 'ma-reunion-jitsi-meet',
+        width: '100%',
+        height: 500,
+        parentNode: document.querySelector('#meet')
+      };
+      const api = new JitsiMeetExternalAPI(domain, options);
+      
+      // Ajoutez un gestionnaire d'événements pour le bouton "Rejoindre la réunion"
+      const joinMeetingBtn = document.querySelector('#join-meeting-btn');
+      joinMeetingBtn.addEventListener('click', () => {
+        api.executeCommand('displayName', 'Mon nom');
+        api.executeCommand('toggleAudio');
+        api.executeCommand('toggleVideo');
+      });
+    });
+  </script>
+  
+  <!-- Affichez la vidéo de la réunion -->
+  <div id="meet"></div>
+</body>
+</html>
