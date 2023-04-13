@@ -9,7 +9,20 @@
     <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/fontawesome-all.min.css">
     <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/iofrm-style.css">
     <link rel="stylesheet" type="text/css" href="assets/cssFormsMentee/iofrm-theme16.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .input-password{
+            position: relative;
+        }
+        .input-password i{
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -31,9 +44,13 @@
             <div class="form-holder">
                 <div class="form-content">
                     <div class="form-items">
-                        <h3 style="color:rgb(30, 162, 150);" >Se connecter en tant que mentee</h3>
+                        <h3 style="color:rgb(30, 162, 150); text-align: center;" id="smsIdS" >Kads</h3><br>
+                            <p id="smsId"></p>
                             <input style="border:1px solid rgb(30, 162, 150);" class="form-control" type="text" name="username" placeholder="Addresse email" id="email" required>
+                            <div class="input-password">
                             <input style="border:1px solid rgb(30, 162, 150);" class="form-control" type="password" name="password" placeholder="Password" id="password" required>
+                            <i class="fa-solid fa-eye-slash" id="eyeIcon" style="cursor: pointer;color: rgb(30, 162, 150);"></i>
+                            </div>
                             <div class="form-button">
                                 <button  id="submit" type="button" class="ibtn">Se connecter</button>
                             </div>
@@ -108,11 +125,15 @@
                         if(Email.value == snapshot.val().Email && Pssword.value == snapshot.val().Pssword){
                             window.location.href = "secteurmantorat.html"
                         }else{
-                            alert("Mot de passe ou adress email incorrecte");
+                            var SmsId = document.getElementById('smsId')
+                            document.getElementById('smsIdS').style.display = "none"
+                            SmsId.innerHTML = ` <h5 class ="btn btn-danger" style="color: white;">Adress email ou mot de passe incorrecte !</h5>`
                         }
 
                     } else {
-                        alert("no data");
+                        var SmsId = document.getElementById('smsId')
+                            document.getElementById('smsIdS').style.display = "none"
+                            SmsId.innerHTML = ` <h5 class ="btn btn-danger" style="color: white;">Utilisateur inexistant !</h5>`
                     }
                 })
                 .catch((error) => {
@@ -127,6 +148,21 @@
         //delbtn.addEventListener("click", deletedata);
     
     
+      </script>
+      <script>
+        const password = document.getElementById('password');
+        const eyeIcon = document.getElementById('eyeIcon');
+        eyeIcon.addEventListener('click',function(){
+            if( password.type ==='password'){
+                password.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            }else{
+                password.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        });
       </script>
     <script src="assets/jsFormsMentee/jquery.min.js"></script>
     <script src="assets/jsFormsMentee/popper.min.js"></script>

@@ -25,16 +25,16 @@ body {
 }
 
 .circle-icon {
-	height: 50px;
-	width: 50px;
-	border-radius: 50px;
+	height: 30px;
+	width: 30px;
+	border-radius: 30px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	background: rgba(30, 162, 150);
-    border: 5px solid #b2bfff;
+    border: 3px solid #b2bfff;
 	color: #fff;
-	margin-left: -20px;
+	margin-left: -10px;
 	margin-right: 10px;
 	transform: scale(1.2);
 }
